@@ -1,0 +1,29 @@
+# Visual Studio/MSBuild/NuGet
+*.vshost.exe
+*.pdb
+*.suo
+*.user
+*.dll
+*.exe
+*.tmp
+*.log
+*.gid
+*.opendb
+*.pfx
+*.publish
+*.nupkg
+*.snk
+**/bin/**
+**/obj/**
+**/packages/**
+
+# Rider
+.idea
+*.sln.iml
+
+# Visual Studio Code
+.vscode
+
+# Editor preferences
+*.suo
+*.user
