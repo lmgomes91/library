@@ -11,3 +11,9 @@ E execute `zsh -l` para disponibilizá-lo para sua sessão atual.
 Você pode adicioná-lo à sessão atual executando o seguinte comando:
 
 export PATH="$PATH:/Users/lucasgomes/.dotnet/tools"
+
+
+
+dotnet ef migrations add init
+
+dotnet ef database update  

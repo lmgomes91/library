@@ -11,7 +11,7 @@ using library.Data;
 namespace library.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20240817182306_init")]
+    [Migration("20240817220301_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -36,19 +36,45 @@ namespace library.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("Borrowed")
-                        .HasColumnType("bit");
-
                     b.Property<int>("Edition")
                         .HasColumnType("int");
 
-                    b.Property<string>("Name")
+                    b.Property<bool>("IsBorrowed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Book");
+                });
+
+            modelBuilder.Entity("library.Models.Borrowed", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Closed")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BookId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Borrowed");
                 });
 
             modelBuilder.Entity("library.Models.User", b =>
@@ -70,6 +96,25 @@ namespace library.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("User");
+                });
+
+            modelBuilder.Entity("library.Models.Borrowed", b =>
+                {
+                    b.HasOne("library.Models.Book", "Book")
+                        .WithMany()
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("library.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Book");
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

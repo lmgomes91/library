@@ -33,13 +33,13 @@ namespace library.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("Borrowed")
-                        .HasColumnType("bit");
-
                     b.Property<int>("Edition")
                         .HasColumnType("int");
 
-                    b.Property<string>("Name")
+                    b.Property<bool>("IsBorrowed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
