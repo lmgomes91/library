@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace library.Migrations
 {
     /// <inheritdoc />
@@ -176,27 +178,35 @@ namespace library.Migrations
                 name: "Borrowed",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
                     BookId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    UserId1 = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false),
                     Closed = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Borrowed", x => x.Id);
+                    table.PrimaryKey("PK_Borrowed", x => new { x.UserId, x.BookId });
                     table.ForeignKey(
-                        name: "FK_Borrowed_AspNetUsers_UserId1",
-                        column: x => x.UserId1,
+                        name: "FK_Borrowed_AspNetUsers_UserId",
+                        column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Borrowed_Book_BookId",
                         column: x => x.BookId,
                         principalTable: "Book",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { "2840a4cd-0e68-4dbb-a984-bd6cb8e38c75", null, "User", "USER" },
+                    { "606324f0-f612-4595-9d72-09c3e4606d54", null, "Admin", "ADMIN" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -242,11 +252,6 @@ namespace library.Migrations
                 name: "IX_Borrowed_BookId",
                 table: "Borrowed",
                 column: "BookId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Borrowed_UserId1",
-                table: "Borrowed",
-                column: "UserId1");
         }
 
         /// <inheritdoc />

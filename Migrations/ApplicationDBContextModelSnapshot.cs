@@ -51,13 +51,13 @@ namespace library.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "961ce778-a1b0-4018-bea5-85b9aafdd68d",
+                            Id = "606324f0-f612-4595-9d72-09c3e4606d54",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "13b0e066-4999-4fde-902a-1fb763907c28",
+                            Id = "2840a4cd-0e68-4dbb-a984-bd6cb8e38c75",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -198,11 +198,8 @@ namespace library.Migrations
 
             modelBuilder.Entity("library.src.Domain.Models.Borrowed", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("BookId")
                         .HasColumnType("int");
@@ -210,17 +207,12 @@ namespace library.Migrations
                     b.Property<bool>("Closed")
                         .HasColumnType("bit");
 
-                    b.Property<int>("UserId")
+                    b.Property<int>("Id")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId1")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
+                    b.HasKey("UserId", "BookId");
 
                     b.HasIndex("BookId");
-
-                    b.HasIndex("UserId1");
 
                     b.ToTable("Borrowed");
                 });
@@ -344,18 +336,30 @@ namespace library.Migrations
             modelBuilder.Entity("library.src.Domain.Models.Borrowed", b =>
                 {
                     b.HasOne("library.src.Domain.Models.Book", "Book")
-                        .WithMany()
+                        .WithMany("Borroweds")
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("library.src.Domain.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId1");
+                        .WithMany("Borroweds")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Book");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("library.src.Domain.Models.Book", b =>
+                {
+                    b.Navigation("Borroweds");
+                });
+
+            modelBuilder.Entity("library.src.Domain.Models.User", b =>
+                {
+                    b.Navigation("Borroweds");
                 });
 #pragma warning restore 612, 618
         }

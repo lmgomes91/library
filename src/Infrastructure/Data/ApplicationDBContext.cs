@@ -16,6 +16,17 @@ namespace library.src.Infrastructure.Data{
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+            
+            builder.Entity<Borrowed>(x => x.HasKey(p => new {p.UserId, p.BookId}));
+            builder.Entity<Borrowed>()
+                .HasOne(u => u.User)
+                .WithMany(u => u.Borroweds)
+                .HasForeignKey(p => p.UserId);
+
+            builder.Entity<Borrowed>()
+                .HasOne(u => u.Book)
+                .WithMany(u => u.Borroweds)
+                .HasForeignKey(p => p.BookId);
 
             List<IdentityRole> roles = new List<IdentityRole>{
                 new IdentityRole{

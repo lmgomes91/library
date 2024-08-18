@@ -12,6 +12,7 @@ namespace library.src.Domain.Interfaces{
         Task<Book?> GetByIdAsync(int id);
         Task<Book?> CreateAsync(Book bookModel);
         Task<Book?> UpdateAsync(Book book, UpdateBookDto bookModel);
+        Task<Book?> UpdateBorrowedStatus(Book book, bool status);
         Task<Book?> DeleteAsync(Book bookModel);
         Task<List<Book>> FindBooksByTitlePatternAsync(string pattern);
     }

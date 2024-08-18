@@ -9,7 +9,7 @@ using library.src.Infrastructure.Data;
 using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.EntityFrameworkCore;
 
-namespace library.Repositories{
+namespace library.src.Infrastructure.Repositories{
     public class BookRepository : IBookRepository
     {
         
@@ -51,6 +51,16 @@ namespace library.Repositories{
             book.IsBorrowed = updateBook.IsBorrowed;
             book.Edition = updateBook.Edition;
             book.Title = updateBook.Title;
+
+            await _context.SaveChangesAsync();
+
+            return book;
+        }
+
+        public async Task<Book?> UpdateBorrowedStatus(Book book, bool status)
+        {
+            
+            book.IsBorrowed = status;
 
             await _context.SaveChangesAsync();
 

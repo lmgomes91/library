@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 using library.src.Application.Dtos.Book;
 using library.src.Application.Mappers;
 using library.src.Domain.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace library.Controllers{
+namespace library.src.WebApi.Controllers{
     [Route("books")]
     [ApiController]
     public class BookController: ControllerBase{
@@ -20,6 +21,7 @@ namespace library.Controllers{
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetAll(){
             var booksDto = await _service.GetAllAsync();
 
@@ -27,6 +29,7 @@ namespace library.Controllers{
         }
 
         [HttpGet("{id:int}")]
+        [Authorize]
         public async Task<IActionResult> GetById([FromRoute] int id){
             var book = await _service.GetByIdAsync(id);
 
@@ -39,6 +42,7 @@ namespace library.Controllers{
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Create([FromBody] CreateBookDto createBook){
             if (!ModelState.IsValid)
             {
@@ -61,6 +65,7 @@ namespace library.Controllers{
 
         [HttpPut]
         [Route("{id:int}")]
+        [Authorize]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateBookDto updateBook){
             if (!ModelState.IsValid)
             {
@@ -92,6 +97,7 @@ namespace library.Controllers{
 
     
         [HttpGet("search")]
+        [Authorize]
         public async Task<IActionResult> FindByTitle([FromQuery] string pattern){
             var books = await _service.FindBooksByTitleAsync(pattern);
 

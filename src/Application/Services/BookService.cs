@@ -9,7 +9,7 @@ using library.src.Domain.Models;
 
 
 namespace library.src.Application.Services{
-    class BookServices : IBookService
+    public class BookServices : IBookService
     {
         private readonly IBookRepository _bookRepository;
         public BookServices(IBookRepository bookRepository)
