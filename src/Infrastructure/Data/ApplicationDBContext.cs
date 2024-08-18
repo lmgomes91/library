@@ -1,8 +1,9 @@
-using library.Models;
+using library.src.Domain.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace library.Data{
-    public class ApplicationDBContext: DbContext{
+namespace library.src.Infrastructure.Data{
+    public class ApplicationDBContext: IdentityDbContext<User>{
         public ApplicationDBContext(DbContextOptions dbContextOptions): base(dbContextOptions){
 
         }

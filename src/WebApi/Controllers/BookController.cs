@@ -2,11 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using library.Data;
-using library.Dtos;
-using library.Dtos.Book;
-using library.Interfaces;
-using library.Models;
+using library.src.Application.Dtos.Book;
+using library.src.Application.Mappers;
+using library.src.Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

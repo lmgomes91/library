@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace library.Dtos{
+namespace library.src.Application.Dtos.Book{
     public class CreateBookDto{
         [Required]
         [MinLength(2, ErrorMessage = "Title must be 2 characters at least")]

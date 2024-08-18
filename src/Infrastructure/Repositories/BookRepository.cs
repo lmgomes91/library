@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using library.Data;
-using library.Dtos.Book;
-using library.Interfaces;
-using library.Models;
+using library.src.Application.Dtos.Book;
+using library.src.Domain.Interfaces;
+using library.src.Domain.Models;
+using library.src.Infrastructure.Data;
 using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.EntityFrameworkCore;
 

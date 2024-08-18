@@ -2,13 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using library.Dtos;
-using library.Dtos.Book;
-using library.Interfaces;
-using library.Models;
+using library.src.Application.Dtos.Book;
+using library.src.Application.Mappers;
+using library.src.Domain.Interfaces;
+using library.src.Domain.Models;
 
 
-namespace library.Servives{
+namespace library.src.Application.Services{
     class BookServices : IBookService
     {
         private readonly IBookRepository _bookRepository;
@@ -25,10 +25,6 @@ namespace library.Servives{
 
                 var book = await _bookRepository.CreateAsync(bookModel);
 
-                if(book == null){
-                    return null;
-                }
-                
                 return book;
                 
             }
@@ -73,7 +69,7 @@ namespace library.Servives{
 
                 return booksDto;
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 throw new Exception();
             }
@@ -85,7 +81,7 @@ namespace library.Servives{
             {
                 return await _bookRepository.GetByIdAsync(id);
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 throw new Exception();
             }
@@ -104,7 +100,7 @@ namespace library.Servives{
 
                 return await _bookRepository.UpdateAsync(book, updateBook);
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 
                 throw;
@@ -120,7 +116,7 @@ namespace library.Servives{
 
                 return booksDto;
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 
                 throw;

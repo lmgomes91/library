@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace library.Dtos.Book{
+namespace library.src.Application.Dtos.Book{
     public class UpdateBookDto{
         [Required]
         [MinLength(2, ErrorMessage = "Title must be 2 characters at least")]

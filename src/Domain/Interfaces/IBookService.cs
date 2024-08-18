@@ -2,12 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using library.Dtos;
-using library.Dtos.Book;
-using library.Models;
+using library.src.Application.Dtos.Book;
+using library.src.Domain.Models;
 
 
-namespace library.Interfaces{
+namespace library.src.Domain.Interfaces{
     public interface IBookService{
         Task<IEnumerable<BookDto>?> GetAllAsync();
         Task<Book?> GetByIdAsync(int id);

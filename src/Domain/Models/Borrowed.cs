@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace library.Models{
+namespace library.src.Domain.Models{
     public class Borrowed{
         public int Id {get; set;}
         
